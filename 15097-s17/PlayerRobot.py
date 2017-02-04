@@ -35,6 +35,7 @@ class player_robot(Robot):
         self.state = 0 #0=searching, 1=have level, 2=going home
         self.levelNumber = 0
         self.pos = (0,0)
+        self.incomplete = false
 
     # A couple of helper functions (Implemented at the bottom)
     def OppositeDir(self, direction):
@@ -93,6 +94,53 @@ class player_robot(Robot):
 			actions = Actions.DROP_GREEN
 	return(finalDirection, actions)
 
+    def containsBlue(L):
+        for marker in L:
+            if Marker.GetColor() == BLUE: return True
+        return False
+    def containsYellow(L):
+        for marker in L:
+            if Marker.GetColor() == YELLOW: return True
+        return False
+    def containsOrange(L):
+        for marker in L:
+            if Marker.GetColor() == ORANGE: return True
+        return False 
+
+
+    def boundary(self):
+        n = self.levelNumber
+        x,y = self.pos
+        if (x > -n and x <= n and y == n): return Actions.MOVE_W
+        if (x >= -n and x < n and y == -n): return Actions.MOVE_E
+        if (y >= -n and y < n and x == n): return Actions.MOVE_N
+        if (y > -n and y <= n and x == -n): return Actions.MOVE_S
+
+    def getKey(D, v):
+    #the value should be in the D
+    for key in D:
+        if key[D] == v: return key
+
+    def isM(x,y,view):
+        return view[x][y][0] == Mountain
+    def mountainDeal(direction, view):
+        x,y = 2,2
+        directions = {Actions.MOVE_E:(1,0), 
+      		      Actions.MOVE_W:(-1,0),
+		      Actions.MOVE_N:(0,-1),
+		      Actions.MOVE_S:(0,1),
+			Actions.MOVE_NW:(-1,-1),
+			Actions.MOVE_NE:(1,-1),
+			Actions.MOVE_SE:(1,1),
+			Actions.MOVE_SW:(-1,1) }
+  
+        dx,dy = directions[direction]
+        trynaX, trynaY = x+dx, y+dy
+        if not isM(trynaX, trynaY, view): return (direction, None)
+        
+        
+         
+
 
     def get_move(self, view):
         terrain = view[2][2][0]
@@ -104,16 +152,17 @@ class player_robot(Robot):
                 self.levelNumber = self.pos[x]
                 action = (mountainDeal(boundary(self), view), Actions.DROP_RED)
                 updatePos(self, action)
+
                 return action
-        else if (self.state == 1):
+        elif (self.state == 1):
             if view[2][2][0] == resource:
-                self.pickup_resource()
+                return(Actions.MINE, Actions.DROP_NONE)
 
 
             action = mountainDeal(boundary(self, view), Actions.DROP_NONE)
             updatePos(self, action)
             return action
-        else if (self.state == 2):
+        elif (self.state == 2):
             action = goHome(self, view)
             updatePos(self, action)
             return action
