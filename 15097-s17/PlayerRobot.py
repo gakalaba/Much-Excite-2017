@@ -72,7 +72,14 @@ class player_robot(Robot):
         if (x < 0 and y < 0): return Actions.MOVE_E
         if (x > 0 and y < 0): return Actions.MOVE_N
         if (x < 0 and y > 0): return Actions.MOVE_S
- 
+    
+    def goingHome(self,view):
+    	dirToReverse = self.toHome[len(self.toHome)-1]
+	finalDirection = oppositeDir(self,dirToReverse)
+	x,y = self.pos
+	markers = view[2][2][2]
+	if y = self.levelNumber and containsRed(markers) :
+		if containsGreen()
 
 
     def get_move(self, view):
