@@ -1,5 +1,5 @@
 from robot import Robot
-from constants import Actions, TileType
+from constants import Actions, TileTypeD
 import random
 import time
 
@@ -59,7 +59,7 @@ class player_robot(Robot):
    
     def containsRed(L):
         for marker in L:	
-	    if Marker.GetColor() == RED:
+	    if Marker.GetColor() == RED
                 return True
         return False
    
@@ -95,7 +95,6 @@ class player_robot(Robot):
 		elif containsYellow(markers) and self.incomplete == False:
 			actions = Actions.DROP_GREEN
 	return(finalDirection, actions)
-
     def containsBlue(L):
         for marker in L:
             if Marker.GetColor() == BLUE: 
@@ -371,4 +370,3 @@ class player_robot(Robot):
         self.targetPath = self.targetPath[1:]
 
         return actionToTake
-
