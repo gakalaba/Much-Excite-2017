@@ -91,6 +91,10 @@ class player_robot(Robot):
         if (x >= -n and x < n and y == -n): return Actions.MOVE_E
         if (y >= -n and y < n and x == n): return Actions.MOVE_N
         if (y > -n and y <= n and x == -n): return Actions.MOVE_S
+	#otherwise, I'm off my ring and must get back onto it
+        if (x < -n and 
+
+
 
     def getKey(D, v):
     #the value should be in the D
@@ -101,18 +105,19 @@ class player_robot(Robot):
         return view[x][y][0] == Mountain
     def mountainDeal(direction, view):
         x,y = 2,2
-        directions = {Actions.MOVE_E:(1,0), 
-      		      Actions.MOVE_W:(-1,0),
-		      Actions.MOVE_N:(0,-1),
-		      Actions.MOVE_S:(0,1),
-			Actions.MOVE_NW:(-1,-1),
-			Actions.MOVE_NE:(1,-1),
-			Actions.MOVE_SE:(1,1),
-			Actions.MOVE_SW:(-1,1) }
+        directions = {Actions.MOVE_E:[(1,0),"E"], 
+      		      Actions.MOVE_W:[(-1,0),"W"],
+		      Actions.MOVE_N:[(0,-1),"N"],
+		      Actions.MOVE_S:[(0,1),"S"],
+			Actions.MOVE_NW:[(-1,-1),"NW"],
+			Actions.MOVE_NE:[(1,-1),"NE"],
+			Actions.MOVE_SE:[(1,1),"SE"],
+			Actions.MOVE_SW:[(-1,1),"SW"] }
   
-        dx,dy = directions[direction]
+        dx,dy = directions[direction][0]
         trynaX, trynaY = x+dx, y+dy
         if not isM(trynaX, trynaY, view): return (direction, None)
+
         
         
         
