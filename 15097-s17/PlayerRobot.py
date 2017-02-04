@@ -65,6 +65,16 @@ class player_robot(Robot):
             if Marker.GetColor() == GREEN: return True
         return False
  
+    def boundary(self):
+        n = self.levelNumber
+        x,y = self.pos
+        if (x > 0 and y > 0): return Actions.MOVE_W
+        if (x < 0 and y < 0): return Actions.MOVE_E
+        if (x > 0 and y < 0): return Actions.MOVE_N
+        if (x < 0 and y > 0): return Actions.MOVE_S
+ 
+
+
     def get_move(self, view):
         terrain = view[2][2][0]
         markers = view[2][2][2]
