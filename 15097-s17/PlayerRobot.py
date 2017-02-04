@@ -74,14 +74,6 @@ class player_robot(Robot):
 	    if Marker.GetColor() == YELLOW: return False
 	return False
  
-    def boundary(self):
-        n = self.levelNumber
-        x,y = self.pos
-        if (x > 0 and y > 0): return Actions.MOVE_W
-        if (x < 0 and y < 0): return Actions.MOVE_E
-        if (x > 0 and y < 0): return Actions.MOVE_N
-        if (x < 0 and y > 0): return Actions.MOVE_S
-    
     def goingHome(self,view):
     	dirToReverse = self.toHome[len(self.toHome)-1]
 	finalDirection = oppositeDir(self,dirToReverse)
@@ -120,7 +112,10 @@ class player_robot(Robot):
         if (y >= -n and y < n and x == n): return Actions.MOVE_N
         if (y > -n and y <= n and x == -n): return Actions.MOVE_S
 	#otherwise, I'm off my ring and must get back onto it
-        if (x < -n and 
+        if (x < -n): return Actions.MOVE_SE
+        if (x > n): return Actions.MOVE_NW
+        if (y < -n): return Actions.MOVE_NE
+        if (y > n): return Actions.MOVE_SW 
 
 
 
