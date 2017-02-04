@@ -58,7 +58,7 @@ class player_robot(Robot):
     ###########################################################################################
    
     def containsRed(L):
-        for marker in L:	
+        for marker in L:
 	    if Marker.GetColor() == RED: return True
         return False
     def containsGreen(L):
@@ -84,18 +84,19 @@ class player_robot(Robot):
             # want to go up, need to check for mountain, resource, w/e
             if not containsRed(markers):
                 self.levelNumber = self.pos[x]
-                action = (mountainDeal(boundary(self), view), Actions.DROP_RED)
-                updatePos(self, action)
+                (action, drops) = (mountainDeal(boundary(self), view), Actions.DROP_RED)
+                self.toHome.append(action)
+                updatePos(self, (action, drops))
 
-                return action
+                return (action, drops)
         elif (self.state == 1):
             if view[2][2][0] == resource:
                 return(Actions.MINE, Actions.DROP_NONE)
 
+            self.toHome.append(action)
+            updatePos(self, (action, drops))
 
-            action = mountainDeal(boundary(self, view), Actions.DROP_NONE)
-            updatePos(self, action)
-            return action
+            return (action, drops)
         elif (self.state == 2):
             action = goHome(self, view)
             updatePos(self, action)
