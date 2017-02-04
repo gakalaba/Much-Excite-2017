@@ -62,11 +62,40 @@ class player_robot(Robot):
 	    if Marker.GetColor() == RED: 
                 return True
         return False
+   
     def containsGreen(L):
         for marker in L:
             if Marker.GetColor() == GREEN: 
                 return True
         return False
+   
+    def containsYellow(L):
+    	for marker in L:
+	    if Marker.GetColor() == YELLOW: return False
+	return False
+ 
+    def boundary(self):
+        n = self.levelNumber
+        x,y = self.pos
+        if (x > 0 and y > 0): return Actions.MOVE_W
+        if (x < 0 and y < 0): return Actions.MOVE_E
+        if (x > 0 and y < 0): return Actions.MOVE_N
+        if (x < 0 and y > 0): return Actions.MOVE_S
+    
+    def goingHome(self,view):
+    	dirToReverse = self.toHome[len(self.toHome)-1]
+	finalDirection = oppositeDir(self,dirToReverse)
+	x,y = self.pos
+	markers = view[2][2][2]
+	self.toHome[:-1]
+	actions = Actions.DROP_NONE
+	if y = self.levelNumber and containsRed(markers) :
+		if !containsYellow(markers) and self.incomplete == True:
+			actions = Actions.DROP_YELLOW
+		elif containsYellow(markers) and self.incomplete == False:
+			actions = Actions.DROP_GREEN
+	return(finalDirection, actions)
+
     def containsBlue(L):
         for marker in L:
             if Marker.GetColor() == BLUE: 
