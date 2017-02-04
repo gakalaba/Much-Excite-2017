@@ -175,7 +175,7 @@ class player_robot(Robot):
 
 
             #self.toHome.append(action)
-            #updatePos(self, (action, drops))
+            # updatePos(self, (action, drops))
 
             return (action, drops)
         elif (self.state == 2):
