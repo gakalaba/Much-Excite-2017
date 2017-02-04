@@ -66,13 +66,16 @@ class player_robot(Robot):
         return False
  
     def get_move(self, view):
-        terrain = view[2][1][0]
-        markers = view[2][1][2]
+        terrain = view[2][2][0]
+        markers = view[2][2][2]
 
         if (self.state == 0):
             # want to go up, need to check for mountain, resource, w/e
             if not containsRed(markers):
-                self.levelNumber = self.pos
+                self.levelNumber = self.pos[x]
+                return (boundary(self), Actions.DROP_RED)
+            
+
 
 
 	
