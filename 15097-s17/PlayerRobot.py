@@ -34,6 +34,7 @@ class player_robot(Robot):
         self.targetDest = (0,0)
         self.state = 0 #0=searching, 1=have level, 2=going home
         self.levelNumber = 0
+        self.pos = (0,0)
 
     # A couple of helper functions (Implemented at the bottom)
     def OppositeDir(self, direction):
@@ -60,12 +61,13 @@ class player_robot(Robot):
 
         if (self.state == 0):
             # want to go up, need to check for mountain, resource, w/e
+            if not containsRed(markers):
+                self.levelNumber = self.pos
+
+
 
 
             
-            
-            
-
         
         '''
 
