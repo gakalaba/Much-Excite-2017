@@ -59,7 +59,7 @@ class player_robot(Robot):
    
     def containsRed(L):
         for marker in L:	
-	    if Marker.GetColor() == RED: 
+	    if Marker.GetColor() == RED:
                 return True
         return False
    
