@@ -59,14 +59,43 @@ class player_robot(Robot):
    
     def containsRed(L):
         for marker in L:	
-	    if Marker.GetColor() == RED: 
+	    if Marker.GetColor() == RED:
                 return True
         return False
+   
     def containsGreen(L):
         for marker in L:
             if Marker.GetColor() == GREEN: 
                 return True
         return False
+   
+    def containsYellow(L):
+    	for marker in L:
+	    if Marker.GetColor() == YELLOW: return False
+	return False
+ 
+    def boundary(self):
+        n = self.levelNumber
+        x,y = self.pos
+        if (x > 0 and y > 0): return Actions.MOVE_W
+        if (x < 0 and y < 0): return Actions.MOVE_E
+        if (x > 0 and y < 0): return Actions.MOVE_N
+        if (x < 0 and y > 0): return Actions.MOVE_S
+    
+    def goingHome(self,view):
+    	dirToReverse = self.toHome[len(self.toHome)-1]
+	finalDirection = oppositeDir(self,dirToReverse)
+	x,y = self.pos
+	markers = view[2][2][2]
+	self.toHome[:-1]
+	actions = Actions.DROP_NONE
+	if y = self.levelNumber and containsRed(markers) :
+		if !containsYellow(markers) and self.incomplete == True:
+			actions = Actions.DROP_YELLOW
+		elif containsYellow(markers) and self.incomplete == False:
+			actions = Actions.DROP_GREEN
+	return(finalDirection, actions)
+
     def containsBlue(L):
         for marker in L:
             if Marker.GetColor() == BLUE: 
@@ -132,18 +161,19 @@ class player_robot(Robot):
             # want to go up, need to check for mountain, resource, w/e
             if not containsRed(markers):
                 self.levelNumber = self.pos[x]
-                action = (mountainDeal(boundary(self), view), Actions.DROP_RED)
-                updatePos(self, action)
+                (action, drops) = (mountainDeal(boundary(self), view), Actions.DROP_RED)
+                self.toHome.append(action)
+                updatePos(self, (action, drops))
 
-                return action
+                return (action, drops)
         elif (self.state == 1):
             if view[2][2][0] == resource:
                 return(Actions.MINE, Actions.DROP_NONE)
 
+            self.toHome.append(action)
+            updatePos(self, (action, drops))
 
-            action = mountainDeal(boundary(self, view), Actions.DROP_NONE)
-            updatePos(self, action)
-            return action
+            return (action, drops)
         elif (self.state == 2):
             action = goHome(self, view)
             updatePos(self, action)
