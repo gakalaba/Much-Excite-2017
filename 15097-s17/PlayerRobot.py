@@ -91,18 +91,24 @@ class player_robot(Robot):
             if not containsRed(markers):
                 self.levelNumber = self.pos[x]
                 action = (mountainDeal(boundary(self), view), Actions.DROP_RED)
-                updatePos(self, action) # TODO write this function
+                updatePos(self, action)
                 return action
         else if (self.state == 1):
+            if view[2][2][0] == resource:
+                self.pickup_resource()
+
+
             action = mountainDeal(boundary(self, view), Actions.DROP_NONE)
             updatePos(self, action)
             return action
         else if (self.state == 2):
-            pass # go home
+            action = goHome(self, view)
+            updatePos(self, action)
+            return action
             
             
 
-    def updatePos(self, action):
+    def updatePos(self, (action, _)):
         if (action == Actions.MOVE_N):
             self.pos = (self.pos[0], self.pos[1]+1)
             return
