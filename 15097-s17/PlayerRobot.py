@@ -83,8 +83,45 @@ class player_robot(Robot):
             # want to go up, need to check for mountain, resource, w/e
             if not containsRed(markers):
                 self.levelNumber = self.pos[x]
-                return (boundary(self), Actions.DROP_RED)
+                action = (mountainDeal(boundary(self), view), Actions.DROP_RED)
+                updatePos(self, action) # TODO write this function
+                return action
+        else if (self.state == 1):
+            action = mountainDeal(boundary(self, view), Actions.DROP_NONE)
+            updatePos(self, action)
+            return action
+        else if (self.state == 2):
+            pass # go home
             
+            
+
+    def updatePos(self, action):
+        if (action == Actions.MOVE_N):
+            self.pos = (self.pos[0], self.pos[1]+1)
+            return
+        if (action == Actions.MOVE_NE):
+            self.pos = (self.pos[0]+1, self.pos[1]+1)
+            return
+        if (action == Actions.MOVE_E):
+            self.pos = (self.pos[0]+1, self.pos[1])
+            return
+        if (action == Actions.MOVE_SE):
+            self.pos = (self.pos[0]+1, self.pos[1]-1)
+            return
+        if (action == Actions.MOVE_S):
+            self.pos = (self.pos[0], self.pos[1]-1)
+            return
+        if (action == Actions.MOVE_SW):
+            self.pos = (self.pos[0]-1, self.pos[1]-1)
+            return
+        if (action == Actions.MOVE_W):
+            self.pos = (self.pos[0]-1, self.pos[1])
+            return
+        if (action == Actions.MOVE_NW):
+            self.pos = (self.pos[0]-1, self.pos[1]+1)
+            return
+        else return
+
 
 
 
