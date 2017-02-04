@@ -32,6 +32,8 @@ class player_robot(Robot):
         self.goinghome = False;      
         self.targetPath = None
         self.targetDest = (0,0)
+        self.state = 0 #0=searching, 1=have level, 2=going home
+        self.levelNumber = 0
 
     # A couple of helper functions (Implemented at the bottom)
     def OppositeDir(self, direction):
@@ -53,6 +55,17 @@ class player_robot(Robot):
     # README - Get_Move                                                                       #
     ###########################################################################################
     def get_move(self, view):
+        terrain = view[2][1][0]
+        markers = view[2][1][2]
+
+        if (not self.levelNumber):
+            # want to go up, need to check for mountain, resource, w/e
+
+            
+            
+
+        
+        '''
 
         # Returns home if you have one resource
         if (self.held_value() > 0):
@@ -97,6 +110,7 @@ class player_robot(Robot):
         markerDrop = Actions.DROP_NONE
         assert(isinstance(actionToTake, int))
         return (actionToTake, markerDrop)
+        '''
 
     # Returns opposite direction
     def OppositeDir(self, prevAction):
