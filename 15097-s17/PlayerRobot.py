@@ -58,9 +58,11 @@ class player_robot(Robot):
         terrain = view[2][1][0]
         markers = view[2][1][2]
 
-        if (not self.levelNumber):
+        if (self.state == 0):
             # want to go up, need to check for mountain, resource, w/e
 
+
+            
             
             
 
