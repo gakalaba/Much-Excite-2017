@@ -35,6 +35,7 @@ class player_robot(Robot):
         self.state = 0 #0=searching, 1=have level, 2=going home
         self.levelNumber = 0
         self.pos = (0,0)
+        self.incomplete = false
 
     # A couple of helper functions (Implemented at the bottom)
     def OppositeDir(self, direction):
@@ -85,16 +86,17 @@ class player_robot(Robot):
                 self.levelNumber = self.pos[x]
                 action = (mountainDeal(boundary(self), view), Actions.DROP_RED)
                 updatePos(self, action)
+
                 return action
-        else if (self.state == 1):
+        elif (self.state == 1):
             if view[2][2][0] == resource:
-                self.pickup_resource()
+                return(Actions.MINE, Actions.DROP_NONE)
 
 
             action = mountainDeal(boundary(self, view), Actions.DROP_NONE)
             updatePos(self, action)
             return action
-        else if (self.state == 2):
+        elif (self.state == 2):
             action = goHome(self, view)
             updatePos(self, action)
             return action
