@@ -162,6 +162,7 @@ class player_robot(Robot):
                 return (action, drops)
         elif (self.state == 1):
             if view[2][2][0] == resource:
+                self.state=2
                 return(Actions.MINE, Actions.DROP_NONE)
 
             self.toHome.append(action)
