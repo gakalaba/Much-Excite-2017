@@ -58,8 +58,8 @@ class player_robot(Robot):
     ###########################################################################################
    
     def containsRed(L):
-        for marker in L:	
-	    if Marker.GetColor() == RED
+        for marker in L:        
+            if Marker.GetColor() == RED:
                 return True
         return False
    
@@ -70,9 +70,9 @@ class player_robot(Robot):
         return False
    
     def containsYellow(L):
-    	for marker in L:
-	    if Marker.GetColor() == YELLOW: return False
-	return False
+        for marker in L:
+            if Marker.GetColor() == YELLOW: return False
+        return False
  
     def boundary(self):
         n = self.levelNumber
@@ -83,18 +83,18 @@ class player_robot(Robot):
         if (x < 0 and y > 0): return Actions.MOVE_S
     
     def goingHome(self,view):
-    	dirToReverse = self.toHome[len(self.toHome)-1]
-	finalDirection = oppositeDir(self,dirToReverse)
-	x,y = self.pos
-	markers = view[2][2][2]
-	self.toHome[:-1]
-	actions = Actions.DROP_NONE
-	if y = self.levelNumber and containsRed(markers) :
-		if !containsYellow(markers) and self.incomplete == True:
-			actions = Actions.DROP_YELLOW
-		elif containsYellow(markers) and self.incomplete == False:
-			actions = Actions.DROP_GREEN
-	return(finalDirection, actions)
+        dirToReverse = self.toHome[len(self.toHome)-1]
+        finalDirection = oppositeDir(self,dirToReverse)
+        x,y = self.pos
+        markers = view[2][2][2]
+        self.toHome[:-1]
+        actions = Actions.DROP_NONE
+        if y == self.levelNumber and containsRed(markers) :
+            if not containsYellow(markers) and self.incomplete == True:
+                    actions = Actions.DROP_YELLOW
+            elif containsYellow(markers) and self.incomplete == False:
+                    actions = Actions.DROP_GREEN
+        return(finalDirection, actions)
     def containsBlue(L):
         for marker in L:
             if Marker.GetColor() == BLUE: 
@@ -119,7 +119,7 @@ class player_robot(Robot):
         if (x >= -n and x < n and y == -n): return Actions.MOVE_E
         if (y >= -n and y < n and x == n): return Actions.MOVE_N
         if (y > -n and y <= n and x == -n): return Actions.MOVE_S
-	#otherwise, I'm off my ring and must get back onto it
+        #otherwise, I'm off my ring and must get back onto it
         if (x < -n and 
 
 
@@ -134,13 +134,13 @@ class player_robot(Robot):
     def mountainDeal(direction, view):
         x,y = 2,2
         directions = {Actions.MOVE_E:[(1,0),"E"], 
-      		      Actions.MOVE_W:[(-1,0),"W"],
-		      Actions.MOVE_N:[(0,-1),"N"],
-		      Actions.MOVE_S:[(0,1),"S"],
-			Actions.MOVE_NW:[(-1,-1),"NW"],
-			Actions.MOVE_NE:[(1,-1),"NE"],
-			Actions.MOVE_SE:[(1,1),"SE"],
-			Actions.MOVE_SW:[(-1,1),"SW"] }
+                            Actions.MOVE_W:[(-1,0),"W"],
+                      Actions.MOVE_N:[(0,-1),"N"],
+                      Actions.MOVE_S:[(0,1),"S"],
+                        Actions.MOVE_NW:[(-1,-1),"NW"],
+                        Actions.MOVE_NE:[(1,-1),"NE"],
+                        Actions.MOVE_SE:[(1,1),"SE"],
+                        Actions.MOVE_SW:[(-1,1),"SW"] }
   
         dx,dy = directions[direction][0]
         trynaX, trynaY = x+dx, y+dy
@@ -210,7 +210,7 @@ class player_robot(Robot):
 
 
 
-	
+        
 
 
             
