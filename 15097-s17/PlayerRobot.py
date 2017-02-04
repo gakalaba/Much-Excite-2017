@@ -35,6 +35,7 @@ class player_robot(Robot):
         self.state = 0 #0=searching, 1=have level, 2=going home
         self.levelNumber = 0
         self.pos = (0,0)
+        self.incomplete = false
 
     # A couple of helper functions (Implemented at the bottom)
     def OppositeDir(self, direction):
@@ -113,13 +114,60 @@ class player_robot(Robot):
 
 
     def get_move(self, view):
-        terrain = view[2][1][0]
-        markers = view[2][1][2]
+        terrain = view[2][2][0]
+        markers = view[2][2][2]
 
         if (self.state == 0):
             # want to go up, need to check for mountain, resource, w/e
             if not containsRed(markers):
-                self.levelNumber = self.pos
+                self.levelNumber = self.pos[x]
+                action = (mountainDeal(boundary(self), view), Actions.DROP_RED)
+                updatePos(self, action)
+
+                return action
+        elif (self.state == 1):
+            if view[2][2][0] == resource:
+                return(Actions.MINE, Actions.DROP_NONE)
+
+
+            action = mountainDeal(boundary(self, view), Actions.DROP_NONE)
+            updatePos(self, action)
+            return action
+        elif (self.state == 2):
+            action = goHome(self, view)
+            updatePos(self, action)
+            return action
+            
+            
+
+    def updatePos(self, (action, _)):
+        if (action == Actions.MOVE_N):
+            self.pos = (self.pos[0], self.pos[1]+1)
+            return
+        if (action == Actions.MOVE_NE):
+            self.pos = (self.pos[0]+1, self.pos[1]+1)
+            return
+        if (action == Actions.MOVE_E):
+            self.pos = (self.pos[0]+1, self.pos[1])
+            return
+        if (action == Actions.MOVE_SE):
+            self.pos = (self.pos[0]+1, self.pos[1]-1)
+            return
+        if (action == Actions.MOVE_S):
+            self.pos = (self.pos[0], self.pos[1]-1)
+            return
+        if (action == Actions.MOVE_SW):
+            self.pos = (self.pos[0]-1, self.pos[1]-1)
+            return
+        if (action == Actions.MOVE_W):
+            self.pos = (self.pos[0]-1, self.pos[1])
+            return
+        if (action == Actions.MOVE_NW):
+            self.pos = (self.pos[0]-1, self.pos[1]+1)
+            return
+        else return
+
+
 
 
 	
