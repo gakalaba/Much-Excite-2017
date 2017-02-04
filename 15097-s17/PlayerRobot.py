@@ -58,22 +58,65 @@ class player_robot(Robot):
     ###########################################################################################
    
     def containsRed(L):
-        for marker in L:
-	    if Marker.GetColor() == RED: return True
+        for marker in L:	
+	    if Marker.GetColor() == RED: 
+                return True
         return False
     def containsGreen(L):
         for marker in L:
-            if Marker.GetColor() == GREEN: return True
+            if Marker.GetColor() == GREEN: 
+                return True
         return False
- 
+    def containsBlue(L):
+        for marker in L:
+            if Marker.GetColor() == BLUE: 
+                return True
+        return False
+    def containsYellow(L):
+        for marker in L:
+            if Marker.GetColor() == YELLOW: 
+                return True
+        return False
+    def containsOrange(L):
+        for marker in L:
+            if Marker.GetColor() == ORANGE: 
+                return True
+        return False 
+
+
     def boundary(self):
         n = self.levelNumber
         x,y = self.pos
-        if (x > 0 and y > 0): return Actions.MOVE_W
-        if (x < 0 and y < 0): return Actions.MOVE_E
-        if (x > 0 and y < 0): return Actions.MOVE_N
-        if (x < 0 and y > 0): return Actions.MOVE_S
- 
+        if (x > -n and x <= n and y == n): return Actions.MOVE_W
+        if (x >= -n and x < n and y == -n): return Actions.MOVE_E
+        if (y >= -n and y < n and x == n): return Actions.MOVE_N
+        if (y > -n and y <= n and x == -n): return Actions.MOVE_S
+
+    def getKey(D, v):
+    #the value should be in the D
+    for key in D:
+        if key[D] == v: return key
+
+    def isM(x,y,view):
+        return view[x][y][0] == Mountain
+    def mountainDeal(direction, view):
+        x,y = 2,2
+        directions = {Actions.MOVE_E:(1,0), 
+      		      Actions.MOVE_W:(-1,0),
+		      Actions.MOVE_N:(0,-1),
+		      Actions.MOVE_S:(0,1),
+			Actions.MOVE_NW:(-1,-1),
+			Actions.MOVE_NE:(1,-1),
+			Actions.MOVE_SE:(1,1),
+			Actions.MOVE_SW:(-1,1) }
+  
+        dx,dy = directions[direction]
+        trynaX, trynaY = x+dx, y+dy
+        if not isM(trynaX, trynaY, view): return (direction, None)
+        
+        
+        
+         
 
 
     def get_move(self, view):
