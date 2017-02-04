@@ -55,6 +55,16 @@ class player_robot(Robot):
     #                                                                                         #
     # README - Get_Move                                                                       #
     ###########################################################################################
+   
+    def containsRed(L):
+        for marker in L:	
+	    if Marker.GetColor() == RED: return True
+        return False
+    def containsGreen(L):
+        for marker in L:
+            if Marker.GetColor() == GREEN: return True
+        return False
+ 
     def get_move(self, view):
         terrain = view[2][1][0]
         markers = view[2][1][2]
@@ -65,6 +75,7 @@ class player_robot(Robot):
                 self.levelNumber = self.pos
 
 
+	
 
 
             
