@@ -59,23 +59,28 @@ class player_robot(Robot):
    
     def containsRed(L):
         for marker in L:	
-	    if Marker.GetColor() == RED: return True
+	    if Marker.GetColor() == RED: 
+                return True
         return False
     def containsGreen(L):
         for marker in L:
-            if Marker.GetColor() == GREEN: return True
+            if Marker.GetColor() == GREEN: 
+                return True
         return False
     def containsBlue(L):
         for marker in L:
-            if Marker.GetColor() == BLUE: return True
+            if Marker.GetColor() == BLUE: 
+                return True
         return False
     def containsYellow(L):
         for marker in L:
-            if Marker.GetColor() == YELLOW: return True
+            if Marker.GetColor() == YELLOW: 
+                return True
         return False
     def containsOrange(L):
         for marker in L:
-            if Marker.GetColor() == ORANGE: return True
+            if Marker.GetColor() == ORANGE: 
+                return True
         return False 
 
 
@@ -108,6 +113,7 @@ class player_robot(Robot):
         dx,dy = directions[direction]
         trynaX, trynaY = x+dx, y+dy
         if not isM(trynaX, trynaY, view): return (direction, None)
+        
         
         
          
